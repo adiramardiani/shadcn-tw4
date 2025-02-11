@@ -1,0 +1,11 @@
+# don't ever lint node_modules
+**/pnpm-lock.yaml
+
+**/node_modules
+**/.next
+**/.git
+
+# don't lint build output, static asset, or storage
+**/storage
+**/public
+**/bootstrap
