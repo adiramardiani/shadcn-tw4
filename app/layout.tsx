@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
+
+import { cn } from '@/lib/utils';
 
 import { fontMono, fontSans } from './ui/fonts';
 import './ui/globals.css';
@@ -18,7 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable} antialiased`}>
+      <body
+        className={cn(
+          'bg-background min-h-svh overscroll-none font-sans antialiased',
+          fontSans.variable,
+          fontMono.variable
+        )}
+      >
         <NuqsAdapter>
           <ThemeProvider
             attribute="class"
@@ -27,6 +36,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster />
           </ThemeProvider>
         </NuqsAdapter>
       </body>
