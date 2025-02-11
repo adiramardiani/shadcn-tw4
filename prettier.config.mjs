@@ -1,8 +1,3 @@
-import { dirname, resolve } from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 const config = {
   bracketSameLine: false,
   htmlWhitespaceSensitivity: 'ignore',
@@ -12,8 +7,26 @@ const config = {
   trailingComma: 'none',
   useTabs: false,
   vueIndentScriptAndStyle: false,
-  plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-tailwindcss'],
-  tailwindConfig: resolve(__dirname, './tailwind.config.ts')
+  plugins: ['@trivago/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
+  importOrder: [
+    '<THIRD_PARTY_MODULES>',
+
+    '^@/components/ui/(.*)$',
+    '^@/components/(.*)$',
+
+    '^@/public/(.*)$',
+
+    '^@/lib/(.*)$',
+    '^@/utils/(.*)$',
+    '^@/hooks/(.*)$',
+    '^@/features/(.*)$',
+    '^[./]'
+  ],
+  importOrderSeparation: true,
+  importOrderSideEffects: true,
+  importOrderSortSpecifiers: true,
+  importOrderCaseInsensitive: true,
+  importOrderGroupNamespaceSpecifiers: true
 };
 
 export default config;
