@@ -1,8 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -223,9 +225,9 @@ function CarouselNext({
 
 export {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
-  type CarouselApi
+  CarouselPrevious
 };
