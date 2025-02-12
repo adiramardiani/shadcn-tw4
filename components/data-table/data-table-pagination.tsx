@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 import type { Table } from '@tanstack/react-table';
@@ -20,6 +22,47 @@ export function DataTablePagination<TData>({
   table,
   pageSizeOptions = [10, 20, 30, 40, 50]
 }: DataTablePaginationProps<TData>) {
+  const pageCount = table.getPageCount();
+  const currentPage = table.getState().pagination.pageIndex + 1;
+
+  // Generate page numbers with ellipsis
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxButtons = 5;
+    const halfMaxButtons = Math.floor(maxButtons / 2);
+
+    if (pageCount <= maxButtons) {
+      // Show all pages if total pages are less than or equal to maxButtons
+      for (let i = 1; i <= pageCount; i++) {
+        pages.push(i);
+      }
+    } else if (currentPage <= halfMaxButtons + 1) {
+      // Show first maxButtons pages with ellipsis at the end
+      for (let i = 1; i <= maxButtons - 1; i++) {
+        pages.push(i);
+      }
+      pages.push('...');
+      pages.push(pageCount);
+    } else if (currentPage >= pageCount - halfMaxButtons) {
+      // Show last maxButtons pages with ellipsis at the start
+      pages.push(1);
+      pages.push('...');
+      for (let i = pageCount - (maxButtons - 2); i <= pageCount; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Show pages around current page with ellipsis at both ends
+      pages.push(1);
+      pages.push('...');
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+        pages.push(i);
+      }
+      pages.push('...');
+      pages.push(pageCount);
+    }
+
+    return pages;
+  };
   return (
     <div className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
       <div className="text-muted-foreground flex-1 text-sm whitespace-nowrap">
@@ -70,6 +113,23 @@ export function DataTablePagination<TData>({
           >
             <ChevronLeft className="size-4" aria-hidden="true" />
           </Button>
+          <div className="flex items-center gap-1">
+            {getPageNumbers().map((page, index) => (
+              <React.Fragment key={index}>
+                {page === '...' ? (
+                  <span className="px-2">...</span>
+                ) : (
+                  <Button
+                    variant={currentPage === page ? 'default' : 'outline'}
+                    className="size-8 p-0"
+                    onClick={() => table.setPageIndex((page as number) - 1)}
+                  >
+                    {page}
+                  </Button>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
           <Button
             aria-label="Go to next page"
             variant="outline"

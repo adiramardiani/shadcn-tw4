@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Loader } from 'lucide-react';
+import { Loader, Plus } from 'lucide-react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
@@ -16,7 +16,8 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  DialogTrigger
 } from '@/components/ui/dialog';
 import {
   Sheet,
@@ -25,43 +26,29 @@ import {
   SheetDescription,
   SheetFooter,
   SheetHeader,
-  SheetTitle
+  SheetTitle,
+  SheetTrigger
 } from '@/components/ui/sheet';
 
 import { useMediaQuery } from '@/hooks/use-media-query';
 
-import { updateTask } from '../_lib/actions';
-import { type UpdateTaskSchema, updateTaskSchema } from '../_lib/validations';
+import { createTask } from '../_lib/actions';
+import type { CreateTaskSchema } from '../_lib/validations';
+import { createTaskSchema } from '../_lib/validations';
 import { TaskForm } from './task-form';
 
-import type { Task } from '@/db/schema';
-
-interface UpdateTaskSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
-  task: Task | null;
-}
-
-export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
+export function CreateTaskSheet() {
+  const [open, setOpen] = React.useState(false);
   const [isPending, startTransition] = React.useTransition();
   const isDesktop = useMediaQuery('(min-width: 640px)');
 
-  const form = useForm<UpdateTaskSchema>({
-    resolver: zodResolver(updateTaskSchema),
-    values: {
-      title: task?.title ?? '',
-      label: task?.label,
-      status: task?.status,
-      priority: task?.priority
-    }
+  const form = useForm<CreateTaskSchema>({
+    resolver: zodResolver(createTaskSchema)
   });
 
-  function onSubmit(input: UpdateTaskSchema) {
+  function onSubmit(input: CreateTaskSchema) {
     startTransition(async () => {
-      if (!task) return;
-
-      const { error } = await updateTask({
-        id: task.id,
-        ...input
-      });
+      const { error } = await createTask(input);
 
       if (error) {
         toast.error(error);
@@ -69,20 +56,26 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
       }
 
       form.reset();
-      props.onOpenChange?.(false);
-      toast.success('Task updated');
+      setOpen(false);
+      toast.success('Task created');
     });
   }
 
   if (isDesktop)
     return (
-      <Dialog {...props}>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline" size="sm">
+            <Plus className="size-4" aria-hidden="true" />
+            New task
+          </Button>
+        </DialogTrigger>
         <DialogContent className="flex flex-col gap-6">
           <DialogHeader>
-            <DialogTitle>Update task</DialogTitle>
-            <DialogDescription>Update the task details and save the changes</DialogDescription>
+            <DialogTitle>Create task</DialogTitle>
+            <DialogDescription>Fill in the details below to create a new task</DialogDescription>
           </DialogHeader>
-          <TaskForm<UpdateTaskSchema> form={form} onSubmit={onSubmit}>
+          <TaskForm<CreateTaskSchema> form={form} onSubmit={onSubmit}>
             <DialogFooter className="gap-2 pt-2 sm:space-x-0">
               <DialogClose asChild>
                 <Button type="button" variant="outline">
@@ -100,14 +93,20 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
     );
 
   return (
-    <Sheet {...props}>
-      <SheetContent className="flex flex-col gap-2 sm:max-w-md">
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="sm">
+          <Plus className="size-4" aria-hidden="true" />
+          New task
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="flex flex-col gap-2 p-4 sm:max-w-md">
         <SheetHeader className="text-left">
-          <SheetTitle>Update task</SheetTitle>
-          <SheetDescription>Update the task details and save the changes</SheetDescription>
+          <SheetTitle>Create task</SheetTitle>
+          <SheetDescription>Fill in the details below to create a new task</SheetDescription>
         </SheetHeader>
-        <TaskForm<UpdateTaskSchema> form={form} onSubmit={onSubmit}>
-          <SheetFooter className="gap-2 p-4 pt-2 sm:space-x-0">
+        <TaskForm<CreateTaskSchema> form={form} onSubmit={onSubmit}>
+          <SheetFooter className="gap-2 p-0 pt-2 sm:space-x-0">
             <SheetClose asChild>
               <Button type="button" variant="outline">
                 Cancel
@@ -115,7 +114,7 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
             </SheetClose>
             <Button disabled={isPending}>
               {isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
-              Save
+              Create
             </Button>
           </SheetFooter>
         </TaskForm>

@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 
 import { exportTableToCSV } from '@/lib/export';
 
+import { CreateTaskSheet } from './create-task-sheet';
 import { DeleteTasksDialog } from './delete-tasks-dialog';
 
 import type { Task } from '@/db/schema';
@@ -25,6 +26,7 @@ export function TasksTableToolbarActions({ table }: TasksTableToolbarActionsProp
           onSuccess={() => table.toggleAllRowsSelected(false)}
         />
       ) : null}
+      <CreateTaskSheet />
       <Button
         variant="outline"
         size="sm"
