@@ -12,7 +12,7 @@ import { getValidFilters } from '@/lib/data-table';
 import { FeatureFlagsProvider } from './_components/feature-flags-provider';
 import { PageTable } from './_components/tasks-table';
 import { getModelCollection, getModelPriorityCounts, getModelStatusCounts } from './_lib/queries';
-import { searchParamsCache, serialize } from './_lib/validations';
+import { searchParamsCache } from './_lib/validations';
 
 interface IndexPageProps {
   searchParams: Promise<SearchParams>;
@@ -21,8 +21,6 @@ interface IndexPageProps {
 export default async function IndexPage(props: IndexPageProps) {
   const searchParams = await props.searchParams;
   const search = searchParamsCache.parse(searchParams);
-
-  const key = serialize({ ...search });
 
   const validFilters = getValidFilters(search.filters);
 
@@ -38,7 +36,7 @@ export default async function IndexPage(props: IndexPageProps) {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
       <FeatureFlagsProvider>
-        <React.Suspense key={`filter-${key}`} fallback={<Skeleton className="h-7 w-52" />}>
+        <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
           <DateRangePicker
             triggerSize="sm"
             triggerClassName="ml-auto w-56 sm:w-60"
@@ -47,7 +45,6 @@ export default async function IndexPage(props: IndexPageProps) {
           />
         </React.Suspense>
         <React.Suspense
-          key={`table-${key}`}
           fallback={
             <DataTableSkeleton
               columnCount={6}
