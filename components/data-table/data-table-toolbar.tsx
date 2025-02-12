@@ -62,7 +62,7 @@ export function DataTableToolbar<TData>({
 
   return (
     <div
-      className={cn('flex w-full items-center justify-between gap-2 overflow-auto p-1', className)}
+      className={cn('flex w-full items-center justify-between gap-2 overflow-auto', className)}
       {...props}
     >
       <div className="flex flex-1 items-center gap-2">
@@ -71,6 +71,7 @@ export function DataTableToolbar<TData>({
             (column) =>
               table.getColumn(column.id ? String(column.id) : '') && (
                 <Input
+                  type="search"
                   key={String(column.id)}
                   placeholder={column.placeholder}
                   value={(table.getColumn(String(column.id))?.getFilterValue() as string) ?? ''}

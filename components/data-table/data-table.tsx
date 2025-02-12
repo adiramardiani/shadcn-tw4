@@ -2,6 +2,7 @@ import type * as React from 'react';
 
 import { flexRender, type Table as TanstackTable } from '@tanstack/react-table';
 
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -30,11 +31,13 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * @example floatingBar={<TasksTableFloatingBar table={table} />}
    */
   floatingBar?: React.ReactNode | null;
+  isLoading?: boolean;
 }
 
 export function DataTable<TData>({
   table,
   floatingBar = null,
+  isLoading = false,
   children,
   className,
   ...props
@@ -66,7 +69,17 @@ export function DataTable<TData>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              Array.from({ length: table.getState().pagination.pageSize }).map((_, index) => (
+                <TableRow key={index}>
+                  {table.getAllColumns().map((column, cellIndex) => (
+                    <TableCell key={cellIndex}>
+                      <Skeleton className="h-8 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
