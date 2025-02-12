@@ -35,7 +35,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
           variant="outline"
           role="combobox"
           size="sm"
-          className="focus:ring-ring ml-auto hidden h-8 gap-2 focus:ring-1 focus:outline-none focus-visible:ring-0 lg:flex"
+          className="focus:ring-ring ml-auto hidden h-8 gap-2 focus:ring-1 focus:outline-hidden focus-visible:ring-0 lg:flex"
         >
           <Settings2 className="size-4" />
           View

@@ -66,12 +66,7 @@ export function PageTableProvider({ children }: React.PropsWithChildren) {
                   {flag.label}
                 </TooltipTrigger>
               </ToggleGroupItem>
-              <TooltipContent
-                align="start"
-                side="bottom"
-                sideOffset={6}
-                className="bg-background text-foreground flex max-w-60 flex-col space-y-1.5 border py-2 font-semibold"
-              >
+              <TooltipContent align="start" side="bottom" sideOffset={6}>
                 <div>{flag.tooltipTitle}</div>
                 <div className="text-muted-foreground text-xs">{flag.tooltipDescription}</div>
               </TooltipContent>

@@ -48,7 +48,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
     <Portal>
       <div className="fixed inset-x-0 bottom-6 z-50 mx-auto w-fit px-2.5">
         <div className="w-full overflow-x-auto">
-          <div className="bg-background text-foreground mx-auto flex w-fit items-center gap-2 rounded-md border p-2 shadow">
+          <div className="bg-background text-foreground mx-auto flex w-fit items-center gap-2 rounded-md border p-2 shadow-sm">
             <div className="flex h-7 items-center rounded-md border border-dashed pr-1 pl-2.5">
               <span className="text-xs whitespace-nowrap">{rows.length} selected</span>
               <Separator orientation="vertical" className="mr-1 ml-2" />
@@ -63,7 +63,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
                     <X className="size-3.5 shrink-0" aria-hidden="true" />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-accent text-foreground flex items-center border px-2 py-1 font-semibold dark:bg-zinc-900">
+                <TooltipContent>
                   <p className="mr-2">Clear selection</p>
                   <Kbd abbrTitle="Escape" variant="outline">
                     Esc
@@ -109,7 +109,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
                       </Button>
                     </TooltipTrigger>
                   </SelectTrigger>
-                  <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
+                  <TooltipContent>
                     <p>Update status</p>
                   </TooltipContent>
                 </Tooltip>
@@ -159,7 +159,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
                       </Button>
                     </TooltipTrigger>
                   </SelectTrigger>
-                  <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
+                  <TooltipContent>
                     <p>Update priority</p>
                   </TooltipContent>
                 </Tooltip>
@@ -198,7 +198,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
+                <TooltipContent>
                   <p>Export items</p>
                 </TooltipContent>
               </Tooltip>
@@ -233,7 +233,7 @@ export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
+                <TooltipContent>
                   <p>Delete items</p>
                 </TooltipContent>
               </Tooltip>
