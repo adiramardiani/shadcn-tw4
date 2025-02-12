@@ -2,10 +2,11 @@
 
 import { asc, eq, inArray, not } from 'drizzle-orm';
 import { customAlphabet } from 'nanoid';
-import { revalidateTag, unstable_noStore } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 import { getErrorMessage } from '@/lib/handle-error';
 
+import { model_count_priority, model_count_status, model_tag } from './constants';
 import { generateRandomTask } from './utils';
 import type { CreateTaskSchema, UpdateTaskSchema } from './validations';
 
@@ -34,7 +35,6 @@ export async function seedTasks(input: { count: number }) {
 }
 
 export async function createTask(input: CreateTaskSchema) {
-  unstable_noStore();
   try {
     await db.transaction(async (tx) => {
       const newTask = await tx
@@ -70,9 +70,9 @@ export async function createTask(input: CreateTaskSchema) {
       );
     });
 
-    revalidateTag('tasks');
-    revalidateTag('task-status-counts');
-    revalidateTag('task-priority-counts');
+    revalidateTag(model_tag);
+    revalidateTag(model_count_status);
+    revalidateTag(model_count_priority);
 
     return {
       data: null,
@@ -87,7 +87,6 @@ export async function createTask(input: CreateTaskSchema) {
 }
 
 export async function updateTask(input: UpdateTaskSchema & { id: string }) {
-  unstable_noStore();
   try {
     const data = await db
       .update(tasks)
@@ -104,12 +103,12 @@ export async function updateTask(input: UpdateTaskSchema & { id: string }) {
       })
       .then(takeFirstOrThrow);
 
-    revalidateTag('tasks');
+    revalidateTag(model_tag);
     if (data.status === input.status) {
-      revalidateTag('task-status-counts');
+      revalidateTag(model_count_status);
     }
     if (data.priority === input.priority) {
-      revalidateTag('task-priority-counts');
+      revalidateTag(model_count_priority);
     }
 
     return {
@@ -130,7 +129,6 @@ export async function updateTasks(input: {
   status?: Task['status'];
   priority?: Task['priority'];
 }) {
-  unstable_noStore();
   try {
     const data = await db
       .update(tasks)
@@ -146,12 +144,12 @@ export async function updateTasks(input: {
       })
       .then(takeFirstOrThrow);
 
-    revalidateTag('tasks');
+    revalidateTag(model_tag);
     if (data.status === input.status) {
-      revalidateTag('task-status-counts');
+      revalidateTag(model_count_status);
     }
     if (data.priority === input.priority) {
-      revalidateTag('task-priority-counts');
+      revalidateTag(model_count_priority);
     }
 
     return {
@@ -167,7 +165,6 @@ export async function updateTasks(input: {
 }
 
 export async function deleteTask(input: { id: string }) {
-  unstable_noStore();
   try {
     await db.transaction(async (tx) => {
       await tx.delete(tasks).where(eq(tasks.id, input.id));
@@ -176,9 +173,9 @@ export async function deleteTask(input: { id: string }) {
       await tx.insert(tasks).values(generateRandomTask());
     });
 
-    revalidateTag('tasks');
-    revalidateTag('task-status-counts');
-    revalidateTag('task-priority-counts');
+    revalidateTag(model_tag);
+    revalidateTag(model_count_status);
+    revalidateTag(model_count_priority);
 
     return {
       data: null,
@@ -193,7 +190,6 @@ export async function deleteTask(input: { id: string }) {
 }
 
 export async function deleteTasks(input: { ids: string[] }) {
-  unstable_noStore();
   try {
     await db.transaction(async (tx) => {
       await tx.delete(tasks).where(inArray(tasks.id, input.ids));
@@ -202,9 +198,9 @@ export async function deleteTasks(input: { ids: string[] }) {
       await tx.insert(tasks).values(input.ids.map(() => generateRandomTask()));
     });
 
-    revalidateTag('tasks');
-    revalidateTag('task-status-counts');
-    revalidateTag('task-priority-counts');
+    revalidateTag(model_tag);
+    revalidateTag(model_count_status);
+    revalidateTag(model_count_priority);
 
     return {
       data: null,

@@ -1,5 +1,6 @@
 import {
   createSearchParamsCache,
+  createSerializer,
   parseAsArrayOf,
   parseAsInteger,
   parseAsString,
@@ -11,7 +12,7 @@ import { getFiltersStateParser, getSortingStateParser } from '@/lib/parsers';
 
 import { type Task, tasks } from '@/db/schema';
 
-export const searchParamsCache = createSearchParamsCache({
+export const searchParams = {
   flags: parseAsArrayOf(z.enum(['advancedTable', 'floatingBar'])).withDefault([]),
   page: parseAsInteger.withDefault(1),
   perPage: parseAsInteger.withDefault(10),
@@ -24,7 +25,10 @@ export const searchParamsCache = createSearchParamsCache({
   // advanced filter
   filters: getFiltersStateParser().withDefault([]),
   joinOperator: parseAsStringEnum(['and', 'or']).withDefault('and')
-});
+};
+
+export const searchParamsCache = createSearchParamsCache(searchParams);
+export const serialize = createSerializer(searchParams);
 
 export const createTaskSchema = z.object({
   title: z.string(),

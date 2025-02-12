@@ -5,6 +5,7 @@ import { and, asc, count, desc, gt, gte, ilike, inArray, lte } from 'drizzle-orm
 import { filterColumns } from '@/lib/filter-columns';
 import { unstable_cache } from '@/lib/unstable-cache';
 
+import { model_count_priority, model_count_status, model_tag } from './constants';
 import type { GetTasksSchema } from './validations';
 
 import { db } from '@/db';
@@ -73,7 +74,7 @@ export async function getTasks(input: GetTasksSchema) {
     [JSON.stringify(input)],
     {
       revalidate: 3600,
-      tags: ['tasks']
+      tags: [model_tag]
     }
   )();
 }
@@ -103,7 +104,7 @@ export async function getTaskStatusCounts() {
         return {} as Record<Task['status'], number>;
       }
     },
-    ['task-status-counts'],
+    [model_count_status],
     {
       revalidate: 3600
     }
@@ -135,7 +136,7 @@ export async function getTaskPriorityCounts() {
         return {} as Record<Task['priority'], number>;
       }
     },
-    ['task-priority-counts'],
+    [model_count_priority],
     {
       revalidate: 3600
     }

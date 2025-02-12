@@ -12,10 +12,6 @@ export type Prettify<T> = {
 
 export type StringKeyOf<TData> = Extract<keyof TData, string>;
 
-export interface SearchParams {
-  [key: string]: string | string[] | undefined;
-}
-
 export interface Option {
   label: string;
   value: string;
