@@ -46,11 +46,11 @@ export function DeleteDialog({
   onSuccess,
   ...props
 }: DeleteDialogProps) {
-  const [isDeletePending, startDeleteTransition] = React.useTransition();
+  const [isPending, startTransition] = React.useTransition();
   const isDesktop = useMediaQuery('(min-width: 640px)');
 
   function onDelete() {
-    startDeleteTransition(async () => {
+    startTransition(async () => {
       const { error } = await deleteMultipleData({
         ids: items.map((item) => item.id)
       });
@@ -94,11 +94,9 @@ export function DeleteDialog({
               aria-label="Delete selected rows"
               variant="destructive"
               onClick={onDelete}
-              disabled={isDeletePending}
+              disabled={isPending}
             >
-              {isDeletePending && (
-                <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />
-              )}
+              {isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
               Delete
             </Button>
           </DialogFooter>
@@ -134,9 +132,9 @@ export function DeleteDialog({
             aria-label="Delete selected rows"
             variant="destructive"
             onClick={onDelete}
-            disabled={isDeletePending}
+            disabled={isPending}
           >
-            {isDeletePending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
+            {isPending && <Loader className="mr-2 size-4 animate-spin" aria-hidden="true" />}
             Delete
           </Button>
         </DrawerFooter>

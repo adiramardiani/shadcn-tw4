@@ -167,7 +167,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Model>[
     {
       id: 'actions',
       cell: function Cell({ row }) {
-        const [isUpdatePending, startUpdateTransition] = React.useTransition();
+        const [isPending, startTransition] = React.useTransition();
 
         return (
           <DropdownMenu>
@@ -190,7 +190,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Model>[
                   <DropdownMenuRadioGroup
                     value={row.original.label}
                     onValueChange={(value) => {
-                      startUpdateTransition(() => {
+                      startTransition(() => {
                         toast.promise(
                           updateData({
                             id: row.original.id,
@@ -210,7 +210,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Model>[
                         key={label}
                         value={label}
                         className="capitalize"
-                        disabled={isUpdatePending}
+                        disabled={isPending}
                       >
                         {label}
                       </DropdownMenuRadioItem>
