@@ -14,7 +14,7 @@ import { DataTableViewOptions } from '@/components/data-table/data-table-view-op
 
 import { cn } from '@/lib/utils';
 
-import type { DataTableFilterField } from '@/types';
+import type { DataTableFilterField } from '@/types/data-table';
 
 interface DataTableToolbarProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   table: Table<TData>;

@@ -14,16 +14,17 @@ import { customAlphabet } from 'nanoid';
 
 import { generateId } from '@/lib/id';
 
-import { type Task, tasks } from '@/db/schema';
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
 
-export function generateRandomTask(): Task {
+export function generateRandomData(): Model {
   return {
     id: generateId('task'),
     code: `TASK-${customAlphabet('0123456789', 4)()}`,
     title: faker.hacker.phrase().replace(/^./, (letter) => letter.toUpperCase()),
-    status: faker.helpers.shuffle(tasks.status.enumValues)[0] ?? 'todo',
-    label: faker.helpers.shuffle(tasks.label.enumValues)[0] ?? 'bug',
-    priority: faker.helpers.shuffle(tasks.priority.enumValues)[0] ?? 'low',
+    status: faker.helpers.shuffle(modelSchema.status.enumValues)[0] ?? 'todo',
+    label: faker.helpers.shuffle(modelSchema.label.enumValues)[0] ?? 'bug',
+    priority: faker.helpers.shuffle(modelSchema.priority.enumValues)[0] ?? 'low',
     archived: faker.datatype.boolean({ probability: 0.2 }),
     createdAt: new Date(),
     updatedAt: new Date()
@@ -32,10 +33,10 @@ export function generateRandomTask(): Task {
 
 /**
  * Returns the appropriate status icon based on the provided status.
- * @param status - The status of the task.
+ * @param status - The status of the data.
  * @returns A React component representing the status icon.
  */
-export function getStatusIcon(status: Task['status']) {
+export function getStatusIcon(status: Model['status']) {
   const statusIcons = {
     canceled: CircleX,
     done: CheckCircle2,
@@ -48,10 +49,10 @@ export function getStatusIcon(status: Task['status']) {
 
 /**
  * Returns the appropriate priority icon based on the provided priority.
- * @param priority - The priority of the task.
+ * @param priority - The priority of the data.
  * @returns A React component representing the priority icon.
  */
-export function getPriorityIcon(priority: Task['priority']) {
+export function getPriorityIcon(priority: Model['priority']) {
   const priorityIcons = {
     high: ArrowUpIcon,
     low: ArrowDownIcon,

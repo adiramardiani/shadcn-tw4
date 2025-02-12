@@ -10,7 +10,7 @@ import { DataTableViewOptions } from '@/components/data-table/data-table-view-op
 
 import { cn } from '@/lib/utils';
 
-import type { DataTableAdvancedFilterField } from '@/types';
+import type { DataTableAdvancedFilterField } from '@/types/data-table';
 
 interface DataTableAdvancedToolbarProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   /**

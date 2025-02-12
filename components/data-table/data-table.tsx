@@ -28,7 +28,7 @@ interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
    * The floating bar to render at the bottom of the table on row selection.
    * @default null
    * @type React.ReactNode | null
-   * @example floatingBar={<TasksTableFloatingBar table={table} />}
+   * @example floatingBar={<PageTableFloatingBar table={table} />}
    */
   floatingBar?: React.ReactNode | null;
   isLoading?: boolean;

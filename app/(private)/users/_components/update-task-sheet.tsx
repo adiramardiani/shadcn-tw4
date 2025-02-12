@@ -30,36 +30,35 @@ import {
 
 import { useMediaQuery } from '@/hooks/use-media-query';
 
-import { updateTask } from '../_lib/actions';
-import { type UpdateTaskSchema, updateTaskSchema } from '../_lib/validations';
-import { TaskForm } from './task-form';
+import { updateData } from '../_lib/actions';
+import { type UpdateSchema, updateSchema } from '../_lib/validations';
+import type { Model } from '../model/schema';
+import { PageForm } from './task-form';
 
-import type { Task } from '@/db/schema';
-
-interface UpdateTaskSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
-  task: Task | null;
+interface UpdateSheetProps extends React.ComponentPropsWithRef<typeof Sheet> {
+  model: Model | null;
 }
 
-export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
+export function UpdateSheet({ model, ...props }: UpdateSheetProps) {
   const [isPending, startTransition] = React.useTransition();
   const isDesktop = useMediaQuery('(min-width: 640px)');
 
-  const form = useForm<UpdateTaskSchema>({
-    resolver: zodResolver(updateTaskSchema),
+  const form = useForm<UpdateSchema>({
+    resolver: zodResolver(updateSchema),
     values: {
-      title: task?.title ?? '',
-      label: task?.label,
-      status: task?.status,
-      priority: task?.priority
+      title: model?.title ?? '',
+      label: model?.label,
+      status: model?.status,
+      priority: model?.priority
     }
   });
 
-  function onSubmit(input: UpdateTaskSchema) {
+  function onSubmit(input: UpdateSchema) {
     startTransition(async () => {
-      if (!task) return;
+      if (!model) return;
 
-      const { error } = await updateTask({
-        id: task.id,
+      const { error } = await updateData({
+        id: model.id,
         ...input
       });
 
@@ -70,7 +69,7 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
 
       form.reset();
       props.onOpenChange?.(false);
-      toast.success('Task updated');
+      toast.success('Data updated');
     });
   }
 
@@ -79,10 +78,10 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
       <Dialog {...props}>
         <DialogContent className="flex flex-col gap-6">
           <DialogHeader>
-            <DialogTitle>Update task</DialogTitle>
-            <DialogDescription>Update the task details and save the changes</DialogDescription>
+            <DialogTitle>Update data</DialogTitle>
+            <DialogDescription>Update the data details and save the changes</DialogDescription>
           </DialogHeader>
-          <TaskForm<UpdateTaskSchema> form={form} onSubmit={onSubmit}>
+          <PageForm<UpdateSchema> form={form} onSubmit={onSubmit}>
             <DialogFooter className="gap-2 pt-2 sm:space-x-0">
               <DialogClose asChild>
                 <Button type="button" variant="outline">
@@ -94,7 +93,7 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
                 Create
               </Button>
             </DialogFooter>
-          </TaskForm>
+          </PageForm>
         </DialogContent>
       </Dialog>
     );
@@ -103,10 +102,10 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
     <Sheet {...props}>
       <SheetContent className="flex flex-col gap-2 sm:max-w-md">
         <SheetHeader className="text-left">
-          <SheetTitle>Update task</SheetTitle>
-          <SheetDescription>Update the task details and save the changes</SheetDescription>
+          <SheetTitle>Update data</SheetTitle>
+          <SheetDescription>Update the data details and save the changes</SheetDescription>
         </SheetHeader>
-        <TaskForm<UpdateTaskSchema> form={form} onSubmit={onSubmit}>
+        <PageForm<UpdateSchema> form={form} onSubmit={onSubmit}>
           <SheetFooter className="gap-2 p-4 pt-2 sm:space-x-0">
             <SheetClose asChild>
               <Button type="button" variant="outline">
@@ -118,7 +117,7 @@ export function UpdateTaskSheet({ task, ...props }: UpdateTaskSheetProps) {
               Save
             </Button>
           </SheetFooter>
-        </TaskForm>
+        </PageForm>
       </SheetContent>
     </Sheet>
   );

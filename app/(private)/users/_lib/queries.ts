@@ -5,13 +5,14 @@ import { and, asc, count, desc, gt, gte, ilike, inArray, lte } from 'drizzle-orm
 import { filterColumns } from '@/lib/filter-columns';
 import { unstable_cache } from '@/lib/unstable-cache';
 
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
 import { model_count_priority, model_count_status, model_tag } from './constants';
-import type { GetTasksSchema } from './validations';
+import type { GetModelSchema } from './validations';
 
 import { db } from '@/db';
-import { type Task, tasks } from '@/db/schema';
 
-export async function getTasks(input: GetTasksSchema) {
+export async function getModelCollection(input: GetModelSchema) {
   return await unstable_cache(
     async () => {
       try {
@@ -21,7 +22,7 @@ export async function getTasks(input: GetTasksSchema) {
         const advancedTable = input.flags.includes('advancedTable');
 
         const advancedWhere = filterColumns({
-          table: tasks,
+          table: modelSchema,
           filters: input.filters,
           joinOperator: input.joinOperator
         });
@@ -29,22 +30,24 @@ export async function getTasks(input: GetTasksSchema) {
         const where = advancedTable
           ? advancedWhere
           : and(
-              input.title ? ilike(tasks.title, `%${input.title}%`) : undefined,
-              input.status.length > 0 ? inArray(tasks.status, input.status) : undefined,
-              input.priority.length > 0 ? inArray(tasks.priority, input.priority) : undefined,
-              fromDate ? gte(tasks.createdAt, fromDate) : undefined,
-              toDate ? lte(tasks.createdAt, toDate) : undefined
+              input.title ? ilike(modelSchema.title, `%${input.title}%`) : undefined,
+              input.status.length > 0 ? inArray(modelSchema.status, input.status) : undefined,
+              input.priority.length > 0 ? inArray(modelSchema.priority, input.priority) : undefined,
+              fromDate ? gte(modelSchema.createdAt, fromDate) : undefined,
+              toDate ? lte(modelSchema.createdAt, toDate) : undefined
             );
 
         const orderBy =
           input.sort.length > 0
-            ? input.sort.map((item) => (item.desc ? desc(tasks[item.id]) : asc(tasks[item.id])))
-            : [asc(tasks.createdAt)];
+            ? input.sort.map((item) =>
+                item.desc ? desc(modelSchema[item.id]) : asc(modelSchema[item.id])
+              )
+            : [asc(modelSchema.createdAt)];
 
         const { data, total } = await db.transaction(async (tx) => {
           const data = await tx
             .select()
-            .from(tasks)
+            .from(modelSchema)
             .limit(input.perPage)
             .offset(offset)
             .where(where)
@@ -54,7 +57,7 @@ export async function getTasks(input: GetTasksSchema) {
             .select({
               count: count()
             })
-            .from(tasks)
+            .from(modelSchema)
             .where(where)
             .execute()
             .then((res) => res[0]?.count ?? 0);
@@ -79,17 +82,17 @@ export async function getTasks(input: GetTasksSchema) {
   )();
 }
 
-export async function getTaskStatusCounts() {
+export async function getModelStatusCounts() {
   return unstable_cache(
     async () => {
       try {
         return await db
           .select({
-            status: tasks.status,
+            status: modelSchema.status,
             count: count()
           })
-          .from(tasks)
-          .groupBy(tasks.status)
+          .from(modelSchema)
+          .groupBy(modelSchema.status)
           .having(gt(count(), 0))
           .then((res) =>
             res.reduce(
@@ -97,11 +100,11 @@ export async function getTaskStatusCounts() {
                 acc[status] = count;
                 return acc;
               },
-              {} as Record<Task['status'], number>
+              {} as Record<Model['status'], number>
             )
           );
       } catch {
-        return {} as Record<Task['status'], number>;
+        return {} as Record<Model['status'], number>;
       }
     },
     [model_count_status],
@@ -111,17 +114,17 @@ export async function getTaskStatusCounts() {
   )();
 }
 
-export async function getTaskPriorityCounts() {
+export async function getModelPriorityCounts() {
   return unstable_cache(
     async () => {
       try {
         return await db
           .select({
-            priority: tasks.priority,
+            priority: modelSchema.priority,
             count: count()
           })
-          .from(tasks)
-          .groupBy(tasks.priority)
+          .from(modelSchema)
+          .groupBy(modelSchema.priority)
           .having(gt(count(), 0))
           .then((res) =>
             res.reduce(
@@ -129,11 +132,11 @@ export async function getTaskPriorityCounts() {
                 acc[priority] = count;
                 return acc;
               },
-              {} as Record<Task['priority'], number>
+              {} as Record<Model['priority'], number>
             )
           );
       } catch {
-        return {} as Record<Task['priority'], number>;
+        return {} as Record<Model['priority'], number>;
       }
     },
     [model_count_priority],

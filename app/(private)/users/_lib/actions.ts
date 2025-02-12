@@ -6,39 +6,40 @@ import { revalidateTag } from 'next/cache';
 
 import { getErrorMessage } from '@/lib/handle-error';
 
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
 import { model_count_priority, model_count_status, model_tag } from './constants';
-import { generateRandomTask } from './utils';
-import type { CreateTaskSchema, UpdateTaskSchema } from './validations';
+import { generateRandomData } from './utils';
+import type { CreateSchema, UpdateSchema } from './validations';
 
 import { db } from '@/db/index';
-import { type Task, tasks } from '@/db/schema';
 import { takeFirstOrThrow } from '@/db/utils';
 
-export async function seedTasks(input: { count: number }) {
+export async function seedData(input: { count: number }) {
   const count = input.count ?? 100;
 
   try {
-    const allTasks: Task[] = [];
+    const allItems: Model[] = [];
 
     for (let i = 0; i < count; i++) {
-      allTasks.push(generateRandomTask());
+      allItems.push(generateRandomData());
     }
 
-    await db.delete(tasks);
+    await db.delete(modelSchema);
 
-    console.log('📝 Inserting tasks', allTasks.length);
+    console.log('📝 Inserting items', allItems.length);
 
-    await db.insert(tasks).values(allTasks).onConflictDoNothing();
+    await db.insert(modelSchema).values(allItems).onConflictDoNothing();
   } catch (err) {
     console.error(err);
   }
 }
 
-export async function createTask(input: CreateTaskSchema) {
+export async function createData(input: CreateSchema) {
   try {
     await db.transaction(async (tx) => {
-      const newTask = await tx
-        .insert(tasks)
+      const data = await tx
+        .insert(modelSchema)
         .values({
           code: `TASK-${customAlphabet('0123456789', 4)()}`,
           title: input.title,
@@ -47,23 +48,23 @@ export async function createTask(input: CreateTaskSchema) {
           priority: input.priority
         })
         .returning({
-          id: tasks.id
+          id: modelSchema.id
         })
         .then(takeFirstOrThrow);
 
-      // Delete a task to keep the total number of tasks constant
-      await tx.delete(tasks).where(
+      // Delete a data to keep the total number of data constant
+      await tx.delete(modelSchema).where(
         eq(
-          tasks.id,
+          modelSchema.id,
           (
             await tx
               .select({
-                id: tasks.id
+                id: modelSchema.id
               })
-              .from(tasks)
+              .from(modelSchema)
               .limit(1)
-              .where(not(eq(tasks.id, newTask.id)))
-              .orderBy(asc(tasks.createdAt))
+              .where(not(eq(modelSchema.id, data.id)))
+              .orderBy(asc(modelSchema.createdAt))
               .then(takeFirstOrThrow)
           ).id
         )
@@ -86,20 +87,20 @@ export async function createTask(input: CreateTaskSchema) {
   }
 }
 
-export async function updateTask(input: UpdateTaskSchema & { id: string }) {
+export async function updateData(input: UpdateSchema & { id: string }) {
   try {
     const data = await db
-      .update(tasks)
+      .update(modelSchema)
       .set({
         title: input.title,
         label: input.label,
         status: input.status,
         priority: input.priority
       })
-      .where(eq(tasks.id, input.id))
+      .where(eq(modelSchema.id, input.id))
       .returning({
-        status: tasks.status,
-        priority: tasks.priority
+        status: modelSchema.status,
+        priority: modelSchema.priority
       })
       .then(takeFirstOrThrow);
 
@@ -123,24 +124,24 @@ export async function updateTask(input: UpdateTaskSchema & { id: string }) {
   }
 }
 
-export async function updateTasks(input: {
+export async function updateMultipleData(input: {
   ids: string[];
-  label?: Task['label'];
-  status?: Task['status'];
-  priority?: Task['priority'];
+  label?: Model['label'];
+  status?: Model['status'];
+  priority?: Model['priority'];
 }) {
   try {
     const data = await db
-      .update(tasks)
+      .update(modelSchema)
       .set({
         label: input.label,
         status: input.status,
         priority: input.priority
       })
-      .where(inArray(tasks.id, input.ids))
+      .where(inArray(modelSchema.id, input.ids))
       .returning({
-        status: tasks.status,
-        priority: tasks.priority
+        status: modelSchema.status,
+        priority: modelSchema.priority
       })
       .then(takeFirstOrThrow);
 
@@ -164,13 +165,13 @@ export async function updateTasks(input: {
   }
 }
 
-export async function deleteTask(input: { id: string }) {
+export async function deleteData(input: { id: string }) {
   try {
     await db.transaction(async (tx) => {
-      await tx.delete(tasks).where(eq(tasks.id, input.id));
+      await tx.delete(modelSchema).where(eq(modelSchema.id, input.id));
 
-      // Create a new task for the deleted one
-      await tx.insert(tasks).values(generateRandomTask());
+      // Create a new data for the deleted one
+      await tx.insert(modelSchema).values(generateRandomData());
     });
 
     revalidateTag(model_tag);
@@ -189,13 +190,13 @@ export async function deleteTask(input: { id: string }) {
   }
 }
 
-export async function deleteTasks(input: { ids: string[] }) {
+export async function deleteMultipleData(input: { ids: string[] }) {
   try {
     await db.transaction(async (tx) => {
-      await tx.delete(tasks).where(inArray(tasks.id, input.ids));
+      await tx.delete(modelSchema).where(inArray(modelSchema.id, input.ids));
 
-      // Create new tasks for the deleted ones
-      await tx.insert(tasks).values(input.ids.map(() => generateRandomTask()));
+      // Create new items for the deleted ones
+      await tx.insert(modelSchema).values(input.ids.map(() => generateRandomData()));
     });
 
     revalidateTag(model_tag);

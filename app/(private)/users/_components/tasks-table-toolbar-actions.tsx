@@ -8,25 +8,24 @@ import { Button } from '@/components/ui/button';
 
 import { exportTableToCSV } from '@/lib/export';
 
-import { CreateTaskSheet } from './create-task-sheet';
-import { DeleteTasksDialog } from './delete-tasks-dialog';
+import type { Model } from '../model/schema';
+import { CreateSheet } from './create-task-sheet';
+import { DeleteDialog } from './delete-tasks-dialog';
 
-import type { Task } from '@/db/schema';
-
-interface TasksTableToolbarActionsProps {
-  table: Table<Task>;
+interface PageTableToolbarActionsProps {
+  table: Table<Model>;
 }
 
-export function TasksTableToolbarActions({ table }: TasksTableToolbarActionsProps) {
+export function PageTableToolbarActions({ table }: PageTableToolbarActionsProps) {
   return (
     <div className="flex items-center gap-2">
       {table.getFilteredSelectedRowModel().rows.length > 0 ? (
-        <DeleteTasksDialog
-          tasks={table.getFilteredSelectedRowModel().rows.map((row) => row.original)}
+        <DeleteDialog
+          items={table.getFilteredSelectedRowModel().rows.map((row) => row.original)}
           onSuccess={() => table.toggleAllRowsSelected(false)}
         />
       ) : null}
-      <CreateTaskSheet />
+      <CreateSheet />
       <Button
         variant="outline"
         size="sm"

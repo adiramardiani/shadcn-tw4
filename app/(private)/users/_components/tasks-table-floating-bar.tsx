@@ -16,15 +16,15 @@ import { Kbd } from '@/components/kbd';
 
 import { exportTableToCSV } from '@/lib/export';
 
-import { deleteTasks, updateTasks } from '../_lib/actions';
+import { deleteMultipleData, updateMultipleData } from '../_lib/actions';
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
 
-import { type Task, tasks } from '@/db/schema';
-
-interface TasksTableFloatingBarProps {
-  table: Table<Task>;
+interface PageTableFloatingBarProps {
+  table: Table<Model>;
 }
 
-export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
+export function PageTableFloatingBar({ table }: PageTableFloatingBarProps) {
   const rows = table.getFilteredSelectedRowModel().rows;
 
   const [isPending, startTransition] = React.useTransition();
@@ -74,11 +74,11 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
             <Separator orientation="vertical" className="hidden h-5 sm:block" />
             <div className="flex items-center gap-1.5">
               <Select
-                onValueChange={(value: Task['status']) => {
+                onValueChange={(value: Model['status']) => {
                   setAction('update-status');
 
                   startTransition(async () => {
-                    const { error } = await updateTasks({
+                    const { error } = await updateMultipleData({
                       ids: rows.map((row) => row.original.id),
                       status: value
                     });
@@ -88,7 +88,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                       return;
                     }
 
-                    toast.success('Tasks updated');
+                    toast.success('Data updated');
                   });
                 }}
               >
@@ -115,7 +115,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                 </Tooltip>
                 <SelectContent align="center">
                   <SelectGroup>
-                    {tasks.status.enumValues.map((status) => (
+                    {modelSchema.status.enumValues.map((status) => (
                       <SelectItem key={status} value={status} className="capitalize">
                         {status}
                       </SelectItem>
@@ -124,11 +124,11 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                 </SelectContent>
               </Select>
               <Select
-                onValueChange={(value: Task['priority']) => {
+                onValueChange={(value: Model['priority']) => {
                   setAction('update-priority');
 
                   startTransition(async () => {
-                    const { error } = await updateTasks({
+                    const { error } = await updateMultipleData({
                       ids: rows.map((row) => row.original.id),
                       priority: value
                     });
@@ -138,7 +138,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                       return;
                     }
 
-                    toast.success('Tasks updated');
+                    toast.success('Data updated');
                   });
                 }}
               >
@@ -165,7 +165,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                 </Tooltip>
                 <SelectContent align="center">
                   <SelectGroup>
-                    {tasks.priority.enumValues.map((priority) => (
+                    {modelSchema.priority.enumValues.map((priority) => (
                       <SelectItem key={priority} value={priority} className="capitalize">
                         {priority}
                       </SelectItem>
@@ -199,7 +199,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
-                  <p>Export tasks</p>
+                  <p>Export items</p>
                 </TooltipContent>
               </Tooltip>
               <Tooltip>
@@ -212,7 +212,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                       setAction('delete');
 
                       startTransition(async () => {
-                        const { error } = await deleteTasks({
+                        const { error } = await deleteMultipleData({
                           ids: rows.map((row) => row.original.id)
                         });
 
@@ -234,7 +234,7 @@ export function TasksTableFloatingBar({ table }: TasksTableFloatingBarProps) {
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent className="bg-accent text-foreground border font-semibold dark:bg-zinc-900">
-                  <p>Delete tasks</p>
+                  <p>Delete items</p>
                 </TooltipContent>
               </Tooltip>
             </div>

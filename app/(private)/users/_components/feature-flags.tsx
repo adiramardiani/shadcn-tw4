@@ -11,25 +11,25 @@ import { type DataTableConfig, dataTableConfig } from '@/config/data-table';
 
 type FeatureFlagValue = DataTableConfig['featureFlags'][number]['value'];
 
-interface TasksTableContextProps {
+interface PageTableContextProps {
   featureFlags: FeatureFlagValue[];
   setFeatureFlags: (value: FeatureFlagValue[]) => void;
 }
 
-const TasksTableContext = React.createContext<TasksTableContextProps>({
+const PageTableContext = React.createContext<PageTableContextProps>({
   featureFlags: [],
   setFeatureFlags: () => {}
 });
 
-export function useTasksTable() {
-  const context = React.useContext(TasksTableContext);
+export function usePageTable() {
+  const context = React.useContext(PageTableContext);
   if (!context) {
-    throw new Error('useTasksTable must be used within a TasksTableProvider');
+    throw new Error('usePageTable must be used within a PageTableProvider');
   }
   return context;
 }
 
-export function TasksTableProvider({ children }: React.PropsWithChildren) {
+export function PageTableProvider({ children }: React.PropsWithChildren) {
   const [featureFlags, setFeatureFlags] = useQueryState<FeatureFlagValue[]>('featureFlags', {
     defaultValue: [],
     parse: (value) => value.split(',') as FeatureFlagValue[],
@@ -39,7 +39,7 @@ export function TasksTableProvider({ children }: React.PropsWithChildren) {
   });
 
   return (
-    <TasksTableContext.Provider
+    <PageTableContext.Provider
       value={{
         featureFlags,
         setFeatureFlags: (value) => void setFeatureFlags(value)
@@ -80,6 +80,6 @@ export function TasksTableProvider({ children }: React.PropsWithChildren) {
         </ToggleGroup>
       </div>
       {children}
-    </TasksTableContext.Provider>
+    </PageTableContext.Provider>
   );
 }

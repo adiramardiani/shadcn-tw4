@@ -29,17 +29,18 @@ import { DataTableColumnHeader } from '@/components/data-table/data-table-column
 import { getErrorMessage } from '@/lib/handle-error';
 import { formatDate } from '@/lib/utils';
 
-import { updateTask } from '../_lib/actions';
+import { updateData } from '../_lib/actions';
 import { getPriorityIcon, getStatusIcon } from '../_lib/utils';
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
 
-import { type Task, tasks } from '@/db/schema';
-import type { DataTableRowAction } from '@/types';
+import type { DataTableRowAction } from '@/types/data-table';
 
 interface GetColumnsProps {
-  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<Task> | null>>;
+  setRowAction: React.Dispatch<React.SetStateAction<DataTableRowAction<Model> | null>>;
 }
 
-export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[] {
+export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Model>[] {
   return [
     {
       id: 'select',
@@ -95,7 +96,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[]
       accessorKey: 'title',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
       cell: ({ row }) => {
-        const label = tasks.label.enumValues.find((label) => label === row.original.label);
+        const label = modelSchema.label.enumValues.find((label) => label === row.original.label);
 
         return (
           <div className="flex space-x-2">
@@ -109,7 +110,9 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[]
       accessorKey: 'status',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
       cell: ({ row }) => {
-        const status = tasks.status.enumValues.find((status) => status === row.original.status);
+        const status = modelSchema.status.enumValues.find(
+          (status) => status === row.original.status
+        );
 
         if (!status) return null;
 
@@ -130,7 +133,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[]
       accessorKey: 'priority',
       header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
       cell: ({ row }) => {
-        const priority = tasks.priority.enumValues.find(
+        const priority = modelSchema.priority.enumValues.find(
           (priority) => priority === row.original.priority
         );
 
@@ -189,9 +192,9 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[]
                     onValueChange={(value) => {
                       startUpdateTransition(() => {
                         toast.promise(
-                          updateTask({
+                          updateData({
                             id: row.original.id,
-                            label: value as Task['label']
+                            label: value as Model['label']
                           }),
                           {
                             loading: 'Updating...',
@@ -202,7 +205,7 @@ export function getColumns({ setRowAction }: GetColumnsProps): ColumnDef<Task>[]
                       });
                     }}
                   >
-                    {tasks.label.enumValues.map((label) => (
+                    {modelSchema.label.enumValues.map((label) => (
                       <DropdownMenuRadioItem
                         key={label}
                         value={label}

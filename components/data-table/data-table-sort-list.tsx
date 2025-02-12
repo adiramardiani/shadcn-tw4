@@ -39,7 +39,7 @@ import { cn, toSentenceCase } from '@/lib/utils';
 import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
 
 import { dataTableConfig } from '@/config/data-table';
-import type { ExtendedColumnSort, ExtendedSortingState, StringKeyOf } from '@/types';
+import type { ExtendedColumnSort, ExtendedSortingState, StringKeyOf } from '@/types/data-table';
 
 interface DataTableSortListProps<TData> {
   table: Table<TData>;

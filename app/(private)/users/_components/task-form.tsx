@@ -21,16 +21,16 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 
-import { tasks } from '@/db/schema';
+import { modelSchema } from '../model/schema';
 
-interface TaskFormProps<T extends FieldValues>
+interface PageFormProps<T extends FieldValues>
   extends Omit<React.ComponentPropsWithRef<'form'>, 'onSubmit'> {
   children: React.ReactNode;
   form: UseFormReturn<T>;
   onSubmit: (data: T) => void;
 }
 
-export function TaskForm<T extends FieldValues>({ form, onSubmit, children }: TaskFormProps<T>) {
+export function PageForm<T extends FieldValues>({ form, onSubmit, children }: PageFormProps<T>) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -61,7 +61,7 @@ export function TaskForm<T extends FieldValues>({ form, onSubmit, children }: Ta
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    {tasks.label.enumValues.map((item) => (
+                    {modelSchema.label.enumValues.map((item) => (
                       <SelectItem key={item} value={item} className="capitalize">
                         {item}
                       </SelectItem>
@@ -87,7 +87,7 @@ export function TaskForm<T extends FieldValues>({ form, onSubmit, children }: Ta
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    {tasks.status.enumValues.map((item) => (
+                    {modelSchema.status.enumValues.map((item) => (
                       <SelectItem key={item} value={item} className="capitalize">
                         {item}
                       </SelectItem>
@@ -113,7 +113,7 @@ export function TaskForm<T extends FieldValues>({ form, onSubmit, children }: Ta
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    {tasks.priority.enumValues.map((item) => (
+                    {modelSchema.priority.enumValues.map((item) => (
                       <SelectItem key={item} value={item} className="capitalize">
                         {item}
                       </SelectItem>

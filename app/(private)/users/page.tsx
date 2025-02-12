@@ -10,8 +10,8 @@ import { DateRangePicker } from '@/components/date-range-picker';
 import { getValidFilters } from '@/lib/data-table';
 
 import { FeatureFlagsProvider } from './_components/feature-flags-provider';
-import { TasksTable } from './_components/tasks-table';
-import { getTaskPriorityCounts, getTasks, getTaskStatusCounts } from './_lib/queries';
+import { PageTable } from './_components/tasks-table';
+import { getModelCollection, getModelPriorityCounts, getModelStatusCounts } from './_lib/queries';
 import { searchParamsCache, serialize } from './_lib/validations';
 
 interface IndexPageProps {
@@ -27,12 +27,12 @@ export default async function IndexPage(props: IndexPageProps) {
   const validFilters = getValidFilters(search.filters);
 
   const promises = Promise.all([
-    getTasks({
+    getModelCollection({
       ...search,
       filters: validFilters
     }),
-    getTaskStatusCounts(),
-    getTaskPriorityCounts()
+    getModelStatusCounts(),
+    getModelPriorityCounts()
   ]);
 
   return (
@@ -58,7 +58,7 @@ export default async function IndexPage(props: IndexPageProps) {
             />
           }
         >
-          <TasksTable promises={promises} />
+          <PageTable promises={promises} />
         </React.Suspense>
       </FeatureFlagsProvider>
     </div>

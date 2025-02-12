@@ -1,11 +1,11 @@
-import { seedTasks } from '@/app/(private)/users/_lib/seeds';
+import { seedData } from '@/app/(private)/users/_lib/seeds';
 
 async function runSeed() {
   console.log('⏳ Running seed...');
 
   const start = Date.now();
 
-  await seedTasks({ count: 100 });
+  await seedData({ count: 100 });
 
   const end = Date.now();
 

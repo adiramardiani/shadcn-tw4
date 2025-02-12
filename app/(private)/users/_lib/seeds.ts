@@ -1,23 +1,24 @@
-import { generateRandomTask } from './utils';
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
+import { generateRandomData } from './utils';
 
 import { db } from '@/db/index';
-import { type Task, tasks } from '@/db/schema';
 
-export async function seedTasks(input: { count: number }) {
+export async function seedData(input: { count: number }) {
   const count = input.count ?? 100;
 
   try {
-    const allTasks: Task[] = [];
+    const allItems: Model[] = [];
 
     for (let i = 0; i < count; i++) {
-      allTasks.push(generateRandomTask());
+      allItems.push(generateRandomData());
     }
 
-    await db.delete(tasks);
+    await db.delete(modelSchema);
 
-    console.log('📝 Inserting tasks', allTasks.length);
+    console.log('📝 Inserting items', allItems.length);
 
-    await db.insert(tasks).values(allTasks).onConflictDoNothing();
+    await db.insert(modelSchema).values(allItems).onConflictDoNothing();
   } catch (err) {
     console.error(err);
   }

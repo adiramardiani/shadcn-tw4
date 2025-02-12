@@ -33,7 +33,7 @@ import { getSortingStateParser } from '@/lib/parsers';
 
 import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
 
-import type { DataTableFilterField, ExtendedSortingState } from '@/types';
+import type { DataTableFilterField, ExtendedSortingState } from '@/types/data-table';
 
 interface UseDataTableProps<TData>
   extends Omit<

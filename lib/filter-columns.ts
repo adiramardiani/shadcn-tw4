@@ -18,7 +18,7 @@ import {
 } from 'drizzle-orm';
 
 import { isEmpty, isNotEmpty } from '@/db/utils';
-import type { Filter, JoinOperator } from '@/types';
+import type { Filter, JoinOperator } from '@/types/data-table';
 
 /**
  * Generate SQL conditions from filters for a specific table.

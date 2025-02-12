@@ -66,7 +66,7 @@ import type {
   FilterOperator,
   JoinOperator,
   StringKeyOf
-} from '@/types';
+} from '@/types/data-table';
 
 interface DataTableFilterListProps<TData> {
   table: Table<TData>;

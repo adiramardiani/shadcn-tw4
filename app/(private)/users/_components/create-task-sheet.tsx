@@ -32,23 +32,23 @@ import {
 
 import { useMediaQuery } from '@/hooks/use-media-query';
 
-import { createTask } from '../_lib/actions';
-import type { CreateTaskSchema } from '../_lib/validations';
-import { createTaskSchema } from '../_lib/validations';
-import { TaskForm } from './task-form';
+import { createData } from '../_lib/actions';
+import type { CreateSchema } from '../_lib/validations';
+import { createSchema } from '../_lib/validations';
+import { PageForm } from './task-form';
 
-export function CreateTaskSheet() {
+export function CreateSheet() {
   const [open, setOpen] = React.useState(false);
   const [isPending, startTransition] = React.useTransition();
   const isDesktop = useMediaQuery('(min-width: 640px)');
 
-  const form = useForm<CreateTaskSchema>({
-    resolver: zodResolver(createTaskSchema)
+  const form = useForm<CreateSchema>({
+    resolver: zodResolver(createSchema)
   });
 
-  function onSubmit(input: CreateTaskSchema) {
+  function onSubmit(input: CreateSchema) {
     startTransition(async () => {
-      const { error } = await createTask(input);
+      const { error } = await createData(input);
 
       if (error) {
         toast.error(error);
@@ -57,7 +57,7 @@ export function CreateTaskSheet() {
 
       form.reset();
       setOpen(false);
-      toast.success('Task created');
+      toast.success('Data created');
     });
   }
 
@@ -67,15 +67,15 @@ export function CreateTaskSheet() {
         <DialogTrigger asChild>
           <Button variant="outline" size="sm">
             <Plus className="size-4" aria-hidden="true" />
-            New task
+            New
           </Button>
         </DialogTrigger>
         <DialogContent className="flex flex-col gap-6">
           <DialogHeader>
-            <DialogTitle>Create task</DialogTitle>
-            <DialogDescription>Fill in the details below to create a new task</DialogDescription>
+            <DialogTitle>Create data</DialogTitle>
+            <DialogDescription>Fill in the details below to create a new data</DialogDescription>
           </DialogHeader>
-          <TaskForm<CreateTaskSchema> form={form} onSubmit={onSubmit}>
+          <PageForm<CreateSchema> form={form} onSubmit={onSubmit}>
             <DialogFooter className="gap-2 pt-2 sm:space-x-0">
               <DialogClose asChild>
                 <Button type="button" variant="outline">
@@ -87,7 +87,7 @@ export function CreateTaskSheet() {
                 Create
               </Button>
             </DialogFooter>
-          </TaskForm>
+          </PageForm>
         </DialogContent>
       </Dialog>
     );
@@ -97,15 +97,15 @@ export function CreateTaskSheet() {
       <SheetTrigger asChild>
         <Button variant="outline" size="sm">
           <Plus className="size-4" aria-hidden="true" />
-          New task
+          New
         </Button>
       </SheetTrigger>
       <SheetContent className="flex flex-col gap-2 p-4 sm:max-w-md">
         <SheetHeader className="text-left">
-          <SheetTitle>Create task</SheetTitle>
-          <SheetDescription>Fill in the details below to create a new task</SheetDescription>
+          <SheetTitle>Create data</SheetTitle>
+          <SheetDescription>Fill in the details below to create a new data</SheetDescription>
         </SheetHeader>
-        <TaskForm<CreateTaskSchema> form={form} onSubmit={onSubmit}>
+        <PageForm<CreateSchema> form={form} onSubmit={onSubmit}>
           <SheetFooter className="gap-2 p-0 pt-2 sm:space-x-0">
             <SheetClose asChild>
               <Button type="button" variant="outline">
@@ -117,7 +117,7 @@ export function CreateTaskSheet() {
               Create
             </Button>
           </SheetFooter>
-        </TaskForm>
+        </PageForm>
       </SheetContent>
     </Sheet>
   );
