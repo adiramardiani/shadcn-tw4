@@ -412,7 +412,7 @@ export function DataTableFilterList<TData>({
                       }
                     });
                   }}
-                  initialFocus
+                  autoFocus
                   numberOfMonths={1}
                 />
               ) : (
@@ -431,7 +431,7 @@ export function DataTableFilterList<TData>({
                       document.getElementById(inputId)?.click();
                     }, 0);
                   }}
-                  initialFocus
+                  autoFocus
                 />
               )}
             </PopoverContent>
