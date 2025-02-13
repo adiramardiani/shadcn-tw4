@@ -134,18 +134,21 @@ importers:
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.0.0)
+      match-sorter:
+        specifier: ^8.0.0
+        version: 8.0.0
       nanoid:
         specifier: ^5.0.9
         version: 5.0.9
       next:
-        specifier: 15.2.0-canary.56
-        version: 15.2.0-canary.56(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 15.2.0-canary.57
+        version: 15.2.0-canary.57(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       nuqs:
         specifier: ^2.3.2
-        version: 2.3.2(next@15.2.0-canary.56(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        version: 2.3.2(next@15.2.0-canary.57(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
@@ -196,8 +199,8 @@ importers:
         specifier: ^4.0.6
         version: 4.0.6
       '@types/node':
-        specifier: ^20.17.18
-        version: 20.17.18
+        specifier: ^20.17.19
+        version: 20.17.19
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -211,8 +214,8 @@ importers:
         specifier: ^9.20.1
         version: 9.20.1(jiti@2.4.2)
       eslint-config-next:
-        specifier: 15.2.0-canary.56
-        version: 15.2.0-canary.56(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
+        specifier: 15.2.0-canary.57
+        version: 15.2.0-canary.57(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
       eslint-config-prettier:
         specifier: ^10.0.1
         version: 10.0.1(eslint@9.20.1(jiti@2.4.2))
@@ -223,11 +226,11 @@ importers:
         specifier: ^8.13.3
         version: 8.13.3
       prettier:
-        specifier: ^3.5.0
-        version: 3.5.0
+        specifier: ^3.5.1
+        version: 3.5.1
       prettier-plugin-tailwindcss:
         specifier: ^0.6.11
-        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.0))(prettier@3.5.0)
+        version: 0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.1))(prettier@3.5.1)
       tailwindcss:
         specifier: ^4.0.6
         version: 4.0.6
@@ -801,56 +804,56 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@next/env@15.2.0-canary.56':
-    resolution: {integrity: sha512-QQQdvJeXdXb2lLzaTTib08gUft7PSQwur0ARuKl0deukW5z3icrjdIjKaBFHhSvQzDdO5TZav3UwC5LXE5Zeww==}
+  '@next/env@15.2.0-canary.57':
+    resolution: {integrity: sha512-hPeaM1iu/0SM15oo4dYCAHssmJ4+xUkhkfKAYeMvNwBCvp0fVG8jOVh7o4dNl1RgrGKzmju16g/AzTEEaAX7EA==}
 
-  '@next/eslint-plugin-next@15.2.0-canary.56':
-    resolution: {integrity: sha512-50sdtdVYTxP9GQ+kKcWdrsLvmjzDn0NnYJ6NwviZVV/7bpECknOgAY3/Ux1xom8tEnHnBkmgKo+DMKhPe+wEcg==}
+  '@next/eslint-plugin-next@15.2.0-canary.57':
+    resolution: {integrity: sha512-J6jr28AyS+GAk/F4dkn13qv7cy5rqsiFFofNMDS7oTQ3YU7ar7EUDyuLOxSUPE1rNno8XrCqx7mPI0ZrW4ee3w==}
 
-  '@next/swc-darwin-arm64@15.2.0-canary.56':
-    resolution: {integrity: sha512-zFc4Fz3xRwIWnOIoFqIAZ6M2P5OtY4WGqtDpUKTJyQp19MTvIzTAXaZbkDjNSHd4i53gzX07Y56O7KF1L16QwA==}
+  '@next/swc-darwin-arm64@15.2.0-canary.57':
+    resolution: {integrity: sha512-wUspUdimED2xD28bDe6z0pPK28180QJJ2+Xpqpptk/1BW6onIB/5RdhLb7tuUTBzFGUk0NfU13ZqKggMv+aYiw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.2.0-canary.56':
-    resolution: {integrity: sha512-qIQ2PfkrBS3TZPQ489hCVYL0WKdhEJIXL+GhK8qN17U2+fow75Xp6VDH5lV5vjpCCAf2jM2Vt7fqqq9V6G8hEQ==}
+  '@next/swc-darwin-x64@15.2.0-canary.57':
+    resolution: {integrity: sha512-iQrOGUifPTbq2cEdFllyvjtmZoBk/no/6eMQiPyMLPT5ydASrGkbaGmJsPjqm7irmvFB+lp3JlOwcXsCD0ZRpQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.56':
-    resolution: {integrity: sha512-Xw/8v4CoH9pGTGWfdRZEiVEymHSWepaZGOOxUO9iakWE/vn1RAQ3zDcRMWf/4iXBRrnOCpjaL2V0hSpFBBYu3Q==}
+  '@next/swc-linux-arm64-gnu@15.2.0-canary.57':
+    resolution: {integrity: sha512-pBYPudaG0iVeD22+f3MH6davFamK1traOclqWTx8vpMAqZZD1eZ8FVe2FKkyBnxL/FqYkkyjs7o8d5LaLIwnrw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.56':
-    resolution: {integrity: sha512-xFouHVVWV4ek9krTVcH7QjQVnHLdGBjghpbywtMq5ECx348/ayBIzpPX212tqFubnL7sHgWspVG/3DPcU308Qg==}
+  '@next/swc-linux-arm64-musl@15.2.0-canary.57':
+    resolution: {integrity: sha512-gpbvRzlVCby9+CvTUdBk2OoLYEefFXgxaUbrMClRhv3zQDwi0+i2d5NT5aF4Udjb4dRRzg8irOwPhmU46FXGAg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.56':
-    resolution: {integrity: sha512-+wKHUGxqAi7LGCXluoM3fdukLL5GKoufpKB7/o46gtdxoUGyVvwAfh1Y10kV3IWYo7rK77T8h3upRz8nKhvsug==}
+  '@next/swc-linux-x64-gnu@15.2.0-canary.57':
+    resolution: {integrity: sha512-hx11HPOuoaQ6mXaeeiFNDTPSZvxVofXhPsuP6ffWtQn/mSL2+C5Y5DLIwP640Xelocq77j8EDu5iBYi3dZGH5w==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.56':
-    resolution: {integrity: sha512-sGolcgd/ZZgiZAP3sTNRXS5csavhp+SZgBuniA4EerXy6HbvJcb8ioiigmfLim8BYouZN51EvPtiYh6yMD55rw==}
+  '@next/swc-linux-x64-musl@15.2.0-canary.57':
+    resolution: {integrity: sha512-mzFCrJWVLBKeFCWJ2mGFOPdAYPsDSR1SyVNXK4VS4DeIUSb0q8gvM+d/QPzaSG7QB0AzMjZpYIlck5VMDdLEyQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.56':
-    resolution: {integrity: sha512-FM4qC7pFfsYvJFgOmQC68DJJFmDvqeloS4PYLxvfxOksXyDOb4HFlqmJ3tfTA6NHnm/c7PHXswVeR/6wyGX8Fg==}
+  '@next/swc-win32-arm64-msvc@15.2.0-canary.57':
+    resolution: {integrity: sha512-dtRfoQpMF/qn30q+VamzErAiCb+Rr1GbUCv950UkQhVWODJVvVBXGfyq4n3SF1xV4ZfNqtoMG0tpoN3lfRjZsw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.56':
-    resolution: {integrity: sha512-lNdyWbZcT8u9tCvG+yjBtLtDt5O5DhtYN/+GjAq0aQ5DGnvJhdza3PkvAW28zjFU1QAHGvjXQGI/fWFl6V+a5A==}
+  '@next/swc-win32-x64-msvc@15.2.0-canary.57':
+    resolution: {integrity: sha512-r5k8me1RlWGiEGnEPJp8TBOyn2Fam5px1EtIJkoRaO7hDl+iRdSs0xgJ1brhXF9WOJQY03yY+Z5j2M0VB0N2Xw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -1646,8 +1649,8 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
-  '@types/node@20.17.18':
-    resolution: {integrity: sha512-9kS0opXVV3dJ+C7HPhXfDlOdMu4cjJSZhlSxlDK39IxVRxBbuiYjCkLYSO9d5UYqTd4DApxRK9T1xJiTAkfA0w==}
+  '@types/node@20.17.19':
+    resolution: {integrity: sha512-LEwC7o1ifqg/6r2gn9Dns0f1rhK+fPFDoMiceTJ6kWmVk6bgXBI/9IOWfVan4WiAavK9pIVWdX0/e3J+eEUh5A==}
 
   '@types/phoenix@1.6.6':
     resolution: {integrity: sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==}
@@ -2156,8 +2159,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-config-next@15.2.0-canary.56:
-    resolution: {integrity: sha512-vg66UufpxGJ3evTBJdln8digC3TEF8KLUW2Kw46g7oG4slaYB3Q0F2KzS2/FCwwRfJRK8tdACtWX889P+eblbQ==}
+  eslint-config-next@15.2.0-canary.57:
+    resolution: {integrity: sha512-latdDFsQNm5fOMWde8xVh92Inq4cl+ftmCvg2A135FPBknhPgOrFt+B41UvF7g+t4is1sxwdH1ZES7qG0Kp6iQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0 || ^9.0.0
       typescript: '>=3.3.1'
@@ -2690,6 +2693,9 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+  match-sorter@8.0.0:
+    resolution: {integrity: sha512-bGJ6Zb+OhzXe+ptP5d80OLVx7AkqfRbtGEh30vNSfjNwllu+hHI+tcbMIT/fbkx/FKN1PmKuDb65+Oofg+XUxw==}
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -2737,8 +2743,8 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next@15.2.0-canary.56:
-    resolution: {integrity: sha512-DgMJ7OednjNUN+fWSCUvaf+e5yJKdprHkHe5FB2UUdVkAqX2Kr6PbGNkEz2MV6ayG+8gQ8u2nrZ1yUhuSRkSdA==}
+  next@15.2.0-canary.57:
+    resolution: {integrity: sha512-eP9GcPaF+vXyrCCUpoZGmHcUe8PkrcgCCIS8hUPF8uY5IXewgfGry2+BzVkQo6VQQ0iqLMnmByCeNxI2ycBG6Q==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -2971,8 +2977,8 @@ packages:
       prettier-plugin-svelte:
         optional: true
 
-  prettier@3.5.0:
-    resolution: {integrity: sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==}
+  prettier@3.5.1:
+    resolution: {integrity: sha512-hPpFQvHwL3Qv5AdRvBFMhnKo4tYxp0ReXiPn2bxkiohEX6mBeBwEpBSQTkD458RaaDKQMYSp4hX4UtfUTA5wDw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3081,6 +3087,9 @@ packages:
   regexp.prototype.flags@1.5.4:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
     engines: {node: '>= 0.4'}
+
+  remove-accents@0.5.0:
+    resolution: {integrity: sha512-8g3/Otx1eJaVD12e31UbJj1YzdtVvzH85HV7t+9MJYk/u3XmkOUJ5Ys9wQrf9PCPK8+xn4ymzqYCiZl6QWKn+A==}
 
   resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
@@ -3845,34 +3854,34 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
     optional: true
 
-  '@next/env@15.2.0-canary.56': {}
+  '@next/env@15.2.0-canary.57': {}
 
-  '@next/eslint-plugin-next@15.2.0-canary.56':
+  '@next/eslint-plugin-next@15.2.0-canary.57':
     dependencies:
       fast-glob: 3.3.1
 
-  '@next/swc-darwin-arm64@15.2.0-canary.56':
+  '@next/swc-darwin-arm64@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-darwin-x64@15.2.0-canary.56':
+  '@next/swc-darwin-x64@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.56':
+  '@next/swc-linux-arm64-gnu@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.56':
+  '@next/swc-linux-arm64-musl@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.56':
+  '@next/swc-linux-x64-gnu@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.56':
+  '@next/swc-linux-x64-musl@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.56':
+  '@next/swc-win32-arm64-msvc@15.2.0-canary.57':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.56':
+  '@next/swc-win32-x64-msvc@15.2.0-canary.57':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -4654,7 +4663,7 @@ snapshots:
 
   '@tanstack/table-core@8.21.2': {}
 
-  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.0)':
+  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.1)':
     dependencies:
       '@babel/generator': 7.26.8
       '@babel/parser': 7.26.8
@@ -4662,7 +4671,7 @@ snapshots:
       '@babel/types': 7.26.8
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.5.0
+      prettier: 3.5.1
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -4699,7 +4708,7 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
-  '@types/node@20.17.18':
+  '@types/node@20.17.19':
     dependencies:
       undici-types: 6.19.8
 
@@ -4715,7 +4724,7 @@ snapshots:
 
   '@types/ws@8.5.14':
     dependencies:
-      '@types/node': 20.17.18
+      '@types/node': 20.17.19
 
   '@typescript-eslint/eslint-plugin@8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)':
     dependencies:
@@ -5291,9 +5300,9 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-next@15.2.0-canary.56(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3):
+  eslint-config-next@15.2.0-canary.57(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3):
     dependencies:
-      '@next/eslint-plugin-next': 15.2.0-canary.56
+      '@next/eslint-plugin-next': 15.2.0-canary.57
       '@rushstack/eslint-patch': 1.10.5
       '@typescript-eslint/eslint-plugin': 8.24.0(@typescript-eslint/parser@8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3))(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
       '@typescript-eslint/parser': 8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
@@ -5893,6 +5902,11 @@ snapshots:
     dependencies:
       react: 19.0.0
 
+  match-sorter@8.0.0:
+    dependencies:
+      '@babel/runtime': 7.26.7
+      remove-accents: 0.5.0
+
   math-intrinsics@1.1.0: {}
 
   merge2@1.4.1: {}
@@ -5927,9 +5941,9 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  next@15.2.0-canary.56(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@15.2.0-canary.57(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      '@next/env': 15.2.0-canary.56
+      '@next/env': 15.2.0-canary.57
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
@@ -5939,25 +5953,25 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       styled-jsx: 5.1.6(react@19.0.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.2.0-canary.56
-      '@next/swc-darwin-x64': 15.2.0-canary.56
-      '@next/swc-linux-arm64-gnu': 15.2.0-canary.56
-      '@next/swc-linux-arm64-musl': 15.2.0-canary.56
-      '@next/swc-linux-x64-gnu': 15.2.0-canary.56
-      '@next/swc-linux-x64-musl': 15.2.0-canary.56
-      '@next/swc-win32-arm64-msvc': 15.2.0-canary.56
-      '@next/swc-win32-x64-msvc': 15.2.0-canary.56
+      '@next/swc-darwin-arm64': 15.2.0-canary.57
+      '@next/swc-darwin-x64': 15.2.0-canary.57
+      '@next/swc-linux-arm64-gnu': 15.2.0-canary.57
+      '@next/swc-linux-arm64-musl': 15.2.0-canary.57
+      '@next/swc-linux-x64-gnu': 15.2.0-canary.57
+      '@next/swc-linux-x64-musl': 15.2.0-canary.57
+      '@next/swc-win32-arm64-msvc': 15.2.0-canary.57
+      '@next/swc-win32-x64-msvc': 15.2.0-canary.57
       sharp: 0.33.5
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
 
-  nuqs@2.3.2(next@15.2.0-canary.56(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
+  nuqs@2.3.2(next@15.2.0-canary.57(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
     dependencies:
       mitt: 3.0.1
       react: 19.0.0
     optionalDependencies:
-      next: 15.2.0-canary.56(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 15.2.0-canary.57(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   object-assign@4.1.1: {}
 
@@ -6100,13 +6114,13 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.0))(prettier@3.5.0):
+  prettier-plugin-tailwindcss@0.6.11(@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.5.1))(prettier@3.5.1):
     dependencies:
-      prettier: 3.5.0
+      prettier: 3.5.1
     optionalDependencies:
-      '@trivago/prettier-plugin-sort-imports': 5.2.2(prettier@3.5.0)
+      '@trivago/prettier-plugin-sort-imports': 5.2.2(prettier@3.5.1)
 
-  prettier@3.5.0: {}
+  prettier@3.5.1: {}
 
   prop-types@15.8.1:
     dependencies:
@@ -6227,6 +6241,8 @@ snapshots:
       get-proto: 1.0.1
       gopd: 1.2.0
       set-function-name: 2.0.2
+
+  remove-accents@0.5.0: {}
 
   resolve-from@4.0.0: {}
 

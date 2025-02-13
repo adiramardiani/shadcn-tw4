@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { ClipboardList } from 'lucide-react';
+
 import type { SearchParams } from 'nuqs/server';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -35,6 +37,15 @@ export default async function IndexPage(props: IndexPageProps) {
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
+      <div className="flex items-center gap-2">
+        <div className="rounded-lg bg-emerald-100 p-2 dark:bg-emerald-900/30">
+          <ClipboardList className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+        </div>
+        <div>
+          <h3 className="font-medium text-zinc-900 dark:text-zinc-100">Tasks</h3>
+          <p className="text-xs text-zinc-600 dark:text-zinc-400">Manage and track your tasks.</p>
+        </div>
+      </div>
       <FeatureFlagsProvider>
         <React.Suspense fallback={<Skeleton className="h-7 w-52" />}>
           <DateRangePicker

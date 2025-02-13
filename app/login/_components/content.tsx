@@ -1,4 +1,11 @@
+'use client';
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,9 +13,46 @@ import { Label } from '@/components/ui/label';
 
 import { cn } from '@/lib/utils';
 
+import { login } from '../lib/actions';
+import type { Model } from '../model/schema';
+import { modelSchema } from '../model/schema';
+
+// You can extend or modify the schema for the login form if needed
+const loginFormSchema = modelSchema.extend({
+  // Add additional fields or modify existing ones for the login form
+});
+
+type LoginFormValues = Model;
+
 export function Content({ className, ...props }: React.ComponentProps<'form'>) {
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema)
+  });
+
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      const result = await login(data);
+      if (result.success) {
+        router.push('/dashboard');
+      } else {
+        setError(result.error || 'An error occurred during login');
+      }
+    } catch {
+      setError('An unexpected error occurred');
+    }
+  };
   return (
-    <form className={cn('flex flex-col gap-6', className)} {...props}>
+    <form
+      className={cn('flex flex-col gap-6', className)}
+      onSubmit={handleSubmit(onSubmit)}
+      {...props}
+    >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">
@@ -18,7 +62,8 @@ export function Content({ className, ...props }: React.ComponentProps<'form'>) {
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input id="email" type="email" placeholder="admin@email.com" {...register('email')} />
+          {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
@@ -27,11 +72,13 @@ export function Content({ className, ...props }: React.ComponentProps<'form'>) {
               Forgot your password?
             </Link>
           </div>
-          <Input id="password" type="password" required />
+          <Input id="password" type="password" {...register('password')} />
+          {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </div>
-        <Button type="submit" className="w-full">
-          Login
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? 'Logging in...' : 'Login'}
         </Button>
+        {error && <p className="text-center text-sm text-red-500">{error}</p>}
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
             Or continue with
