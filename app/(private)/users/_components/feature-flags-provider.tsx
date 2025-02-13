@@ -9,7 +9,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 
 import { cn } from '@/lib/utils';
 
-import { type DataTableConfig, dataTableConfig } from '@/config/data-table';
+import type { DataTableConfig } from '@/config/data-table';
+import { dataTableConfig } from '@/config/data-table';
 
 type FeatureFlagValue = DataTableConfig['featureFlags'][number]['value'];
 

@@ -31,7 +31,8 @@ import {
 import { useMediaQuery } from '@/hooks/use-media-query';
 
 import { updateData } from '../_lib/actions';
-import { type UpdateSchema, updateSchema } from '../_lib/validations';
+import type { UpdateSchema } from '../_lib/validations';
+import { updateSchema } from '../_lib/validations';
 import type { Model } from '../model/schema';
 import { PageForm } from './task-form';
 
