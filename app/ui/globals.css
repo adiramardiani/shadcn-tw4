@@ -119,6 +119,8 @@
   --color-sidebar: var(--sidebar);
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-slide-down: slide-down 300ms ease-out;
+  --animate-slide-up: slide-up 300ms ease-out;
 
   @keyframes accordion-down {
     from {
@@ -132,6 +134,24 @@
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      height: var(--radix-collapsible-content-height);
     }
     to {
       height: 0;
