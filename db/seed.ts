@@ -1,4 +1,4 @@
-import { seedData } from '@/app/(private)/users/_lib/seeds';
+import { seedData } from '@/app/(private)/tasks/_lib/seeds';
 
 async function runSeed() {
   console.log('⏳ Running seed...');

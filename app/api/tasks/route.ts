@@ -6,8 +6,8 @@ import { getValidFilters } from '@/lib/data-table';
 
 import { getModelCollection, getModelPriorityCounts, getModelStatusCounts } from './service';
 
-import { createData } from '@/app/(private)/users/_lib/actions';
-import { createSchema, searchParamsCache } from '@/app/(private)/users/_lib/validations';
+import { createData } from '@/app/(private)/tasks/_lib/actions';
+import { createSchema, searchParamsCache } from '@/app/(private)/tasks/_lib/validations';
 
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;

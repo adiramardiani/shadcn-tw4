@@ -2,9 +2,9 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
-import { deleteData, updateData } from '@/app/(private)/users/_lib/actions';
-import { getModelData } from '@/app/(private)/users/_lib/queries';
-import { updateSchema } from '@/app/(private)/users/_lib/validations';
+import { deleteData, updateData } from '@/app/(private)/tasks/_lib/actions';
+import { getModelData } from '@/app/(private)/tasks/_lib/queries';
+import { updateSchema } from '@/app/(private)/tasks/_lib/validations';
 
 export const GET = async (
   request: NextRequest,

@@ -4,9 +4,9 @@ import { and, asc, count, desc, eq, gt, gte, ilike, inArray, lte } from 'drizzle
 
 import { filterColumns } from '@/lib/filter-columns';
 
-import type { GetModelSchema } from '@/app/(private)/users/_lib/validations';
-import type { Model } from '@/app/(private)/users/model/schema';
-import { modelSchema } from '@/app/(private)/users/model/schema';
+import type { GetModelSchema } from '@/app/(private)/tasks/_lib/validations';
+import type { Model } from '@/app/(private)/tasks/model/schema';
+import { modelSchema } from '@/app/(private)/tasks/model/schema';
 import { db } from '@/db';
 
 export async function getModelCollection(input: GetModelSchema) {
