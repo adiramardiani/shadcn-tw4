@@ -1,13 +1,18 @@
 import 'server-only';
 
-import { and, asc, count, desc, gt, gte, ilike, inArray, lte } from 'drizzle-orm';
+import { and, asc, count, desc, eq, gt, gte, ilike, inArray, lte } from 'drizzle-orm';
 
 import { filterColumns } from '@/lib/filter-columns';
 import { unstable_cache } from '@/lib/unstable-cache';
 
 import type { Model } from '../model/schema';
 import { modelSchema } from '../model/schema';
-import { model_count_priority, model_count_status, model_tag } from './constants';
+import {
+  cache_tag_collection,
+  cache_tag_count_priority,
+  cache_tag_count_status,
+  cache_tag_single
+} from './constants';
 import type { GetModelSchema } from './validations';
 
 import { db } from '@/db';
@@ -77,7 +82,29 @@ export async function getModelCollection(input: GetModelSchema) {
     [JSON.stringify(input)],
     {
       revalidate: 3600,
-      tags: [model_tag]
+      tags: [cache_tag_collection]
+    }
+  )();
+}
+
+export async function getModelData(input: { id: string }): Promise<Model | null> {
+  return unstable_cache(
+    async () => {
+      try {
+        const data = await db
+          .select()
+          .from(modelSchema)
+          .where(eq(modelSchema.id, input.id))
+          .then((res) => res[0] || null);
+        return data;
+      } catch {
+        return null;
+      }
+    },
+    [input.id],
+    {
+      revalidate: 3600,
+      tags: [`${cache_tag_single}-${input.id}`]
     }
   )();
 }
@@ -107,9 +134,10 @@ export async function getModelStatusCounts() {
         return {} as Record<Model['status'], number>;
       }
     },
-    [model_count_status],
+    [cache_tag_count_status],
     {
-      revalidate: 3600
+      revalidate: 3600,
+      tags: [cache_tag_count_status]
     }
   )();
 }
@@ -139,9 +167,10 @@ export async function getModelPriorityCounts() {
         return {} as Record<Model['priority'], number>;
       }
     },
-    [model_count_priority],
+    [cache_tag_count_priority],
     {
-      revalidate: 3600
+      revalidate: 3600,
+      tags: [cache_tag_count_priority]
     }
   )();
 }

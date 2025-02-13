@@ -8,7 +8,11 @@ import { getErrorMessage } from '@/lib/handle-error';
 
 import type { Model } from '../model/schema';
 import { modelSchema } from '../model/schema';
-import { model_count_priority, model_count_status, model_tag } from './constants';
+import {
+  cache_tag_collection,
+  cache_tag_count_priority,
+  cache_tag_count_status
+} from './constants';
 import { generateRandomData } from './utils';
 import type { CreateSchema, UpdateSchema } from './validations';
 
@@ -71,9 +75,9 @@ export async function createData(input: CreateSchema) {
       );
     });
 
-    revalidateTag(model_tag);
-    revalidateTag(model_count_status);
-    revalidateTag(model_count_priority);
+    revalidateTag(cache_tag_collection);
+    revalidateTag(cache_tag_count_status);
+    revalidateTag(cache_tag_count_priority);
 
     return {
       data: null,
@@ -104,12 +108,12 @@ export async function updateData(input: UpdateSchema & { id: string }) {
       })
       .then(takeFirstOrThrow);
 
-    revalidateTag(model_tag);
+    revalidateTag(cache_tag_collection);
     if (data.status === input.status) {
-      revalidateTag(model_count_status);
+      revalidateTag(cache_tag_count_status);
     }
     if (data.priority === input.priority) {
-      revalidateTag(model_count_priority);
+      revalidateTag(cache_tag_count_priority);
     }
 
     return {
@@ -145,12 +149,12 @@ export async function updateMultipleData(input: {
       })
       .then(takeFirstOrThrow);
 
-    revalidateTag(model_tag);
+    revalidateTag(cache_tag_collection);
     if (data.status === input.status) {
-      revalidateTag(model_count_status);
+      revalidateTag(cache_tag_count_status);
     }
     if (data.priority === input.priority) {
-      revalidateTag(model_count_priority);
+      revalidateTag(cache_tag_count_priority);
     }
 
     return {
@@ -174,9 +178,9 @@ export async function deleteData(input: { id: string }) {
       await tx.insert(modelSchema).values(generateRandomData());
     });
 
-    revalidateTag(model_tag);
-    revalidateTag(model_count_status);
-    revalidateTag(model_count_priority);
+    revalidateTag(cache_tag_collection);
+    revalidateTag(cache_tag_count_status);
+    revalidateTag(cache_tag_count_priority);
 
     return {
       data: null,
@@ -199,9 +203,9 @@ export async function deleteMultipleData(input: { ids: string[] }) {
       await tx.insert(modelSchema).values(input.ids.map(() => generateRandomData()));
     });
 
-    revalidateTag(model_tag);
-    revalidateTag(model_count_status);
-    revalidateTag(model_count_priority);
+    revalidateTag(cache_tag_collection);
+    revalidateTag(cache_tag_count_status);
+    revalidateTag(cache_tag_count_priority);
 
     return {
       data: null,
