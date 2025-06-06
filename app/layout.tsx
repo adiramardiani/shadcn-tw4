@@ -1,7 +1,6 @@
 import './ui/globals.css';
 
 import type { Metadata } from 'next';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { Toaster } from '@/components/ui/sonner';
 
@@ -30,7 +29,7 @@ export default function RootLayout({
           fontMono.variable
         )}
       >
-        <NuqsAdapter>
+       
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -40,7 +39,7 @@ export default function RootLayout({
             {children}
             <Toaster />
           </ThemeProvider>
-        </NuqsAdapter>
+       
       </body>
     </html>
   );
